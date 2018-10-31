@@ -19,8 +19,19 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
   mv /tmp/artifacts/. ./
 fi
 
-echo "---> Installing application source..."
+echo "---> Installing source..."
 cp -Rf /tmp/src/. ./
 
-echo "---> Building application from source..."
-# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+echo "---> Building entwine index from source..."
+
+for f in $(ls *.source); do
+  name=$(echo "$f" | cut -d. -f1)
+  mapfile -t inputs < ${f}
+  if [[ -f "$name.json" ]]; then json="$name.json"; fi
+  echo "---> Processing source for index $name"
+  entwine build -c "$json" -i ${inputs[@]} -o "/entwine/$name"
+done
+
+echo "---> Updating index permissions"
+chgrp -R 0 /entwine
+chmod -R g+x /entwine
