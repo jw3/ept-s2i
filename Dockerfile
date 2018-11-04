@@ -21,6 +21,8 @@ RUN mkdir /opt/app-root /entwine \
  && chown -R 1001:0 /entwine /usr/libexec/s2i /opt/app-root \
  && chmod -R g+rwX  /entwine /usr/libexec/s2i /opt/app-root
 
+WORKDIR /opt/app-root
+
 USER 1001
 
 EXPOSE 8080
