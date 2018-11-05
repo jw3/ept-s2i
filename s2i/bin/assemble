@@ -27,9 +27,9 @@ echo "---> Building entwine index from source..."
 for f in $(ls *.source); do
   name=$(echo "$f" | cut -d. -f1)
   mapfile -t inputs < ${f}
-  if [[ -f "$name.json" ]]; then json="$name.json"; fi
+  if [[ -f "$name.json" ]]; then jsoncfg="-c $name.json"; fi
   echo "---> Processing source for index $name"
-  entwine build -c "$json" -i ${inputs[@]} -o "/entwine/$name"
+  entwine build ${jsoncfg} -i ${inputs[@]} -o "/entwine/$name"
 done
 
 echo "---> Updating index permissions"
