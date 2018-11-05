@@ -17,9 +17,9 @@ COPY --from=nginx /usr/sbin/nginx /usr/sbin/nginx
 COPY nginx/nginx.conf /etc/nginx
 COPY nginx/default.conf /etc/nginx/conf.d
 
-RUN mkdir /opt/app-root /entwine \
- && chown -R 1001:0 /entwine /usr/libexec/s2i /opt/app-root \
- && chmod -R g+rwX  /entwine /usr/libexec/s2i /opt/app-root
+RUN mkdir /opt/app-root /entwine /var/log/nginx \
+ && chown -R 1001:0 /entwine /usr/libexec/s2i /opt/app-root /var/log/nginx \
+ && chmod -R g+rwX  /entwine /usr/libexec/s2i /opt/app-root /var/log/nginx
 
 WORKDIR /opt/app-root
 
