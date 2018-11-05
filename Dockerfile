@@ -4,10 +4,11 @@ FROM connormanning/entwine:$TAG
 MAINTAINER John Wass <jwass3@gmail.com>
 
 ENV EPT_BUILDER_VERSION 0.1
+ENV EPT_HTTP_PORT 8080
 
 LABEL io.k8s.display-name="EPT Builder" \
       io.k8s.description="Entwine Point Tile (EPT) Building and Serving Platform" \
-      io.openshift.expose-services="8080:http" \
+      io.openshift.expose-services="${EPT_HTTP_PORT}:http" \
       io.openshift.tags="builder,ept,entwine,pointcloud" \
       io.openshift.s2i.scripts-url="image:///usr/libexec/s2i"
 
@@ -25,7 +26,7 @@ WORKDIR /opt/app-root
 
 USER 1001
 
-EXPOSE 8080
+EXPOSE ${EPT_HTTP_PORT}
 
 ENTRYPOINT []
 CMD ["/usr/libexec/s2i/usage"]
