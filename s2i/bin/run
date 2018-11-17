@@ -7,6 +7,9 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-
-echo "starting ept server port $EPT_HTTP_PORT"
-nginx
+if [[ -z ${EPT_GH_BUILDER_VERSION} ]]; then
+  echo "starting ept server port $EPT_HTTP_PORT"
+  nginx
+else
+  greyhound
+fi
